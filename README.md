@@ -17,7 +17,7 @@
 ---
 
 ## 🎬 **DEMO TIME** 
-🔥 **[LIVE SITE](http://localhost:9002)** • 📱 **Mobile Optimized** • ⚡ **Real-time RSVPs**
+🔥 **[LIVE SITE](https://eventola.appwrite.network)** • 📱 **Mobile Optimized** • ⚡ **Real-time RSVPs**
 
 > **Quick Test:** Visit the demo, see the live RSVP counter, try the AI generators!
 
@@ -203,7 +203,7 @@ npm run setup:appwrite
 npm run dev
 ```
 
-**🎯 Visit:** `http://localhost:9002`
+**🎯 Visit:** `http://localhost:9002` (for development) or **[https://eventola.appwrite.network](https://eventola.appwrite.network)** (live demo)
 
 ### 🔧 **Environment Configuration**
 
@@ -239,7 +239,7 @@ Our setup script creates everything automatically:
 
 ### � **For Judges & Developers**
 
-**🚀 Live Demo:** [http://localhost:9002](http://localhost:9002)
+**🚀 Live Demo:** [https://eventola.appwrite.network](https://eventola.appwrite.network)
 
 **Test Flow:**
 1. **📝 Register Account** → `Sign up as organizer`
@@ -352,7 +352,7 @@ npm run start              # Start production server
 
 **📧 Contact:** [iamaanahmad@gmail.com](mailto:iamaanahmad@gmail.com)  
 **🐙 GitHub:** [@iamaanahmad](https://github.com/iamaanahmad)  
-**🌐 Live Demo:** [eventola.appwrite.network](http://localhost:9002)
+**🌐 Live Demo:** [https://eventola.appwrite.network](https://eventola.appwrite.network)
 
 ---
 

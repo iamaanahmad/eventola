@@ -73,4 +73,4 @@
 
 ---
 
-**Ready to see it in action? Run `npm run dev` and visit http://localhost:9002**
+**Ready to see it in action? Visit https://eventola.appwrite.network**
