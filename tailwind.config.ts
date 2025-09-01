@@ -8,11 +8,19 @@ export default {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    container: {
+      center: true,
+      padding: '2rem',
+      screens: {
+        '2xl': '1400px',
+      },
+    },
     extend: {
       fontFamily: {
-        body: ['Inter', 'sans-serif'],
-        headline: ['Inter', 'sans-serif'],
-        code: ['monospace'],
+        body: ['var(--font-inter)', 'sans-serif'],
+        headline: ['var(--font-space-grotesk)', 'sans-serif'],
+        'headline-serif': ['var(--font-playfair-display)', 'serif'],
+        serif: ['var(--font-playfair-display)', 'serif'],
       },
       colors: {
         background: 'hsl(var(--background))',
@@ -97,3 +105,5 @@ export default {
   },
   plugins: [require('tailwindcss-animate')],
 } satisfies Config;
+
+    
