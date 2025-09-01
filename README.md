@@ -100,23 +100,65 @@ cd eventola
 npm install
 ```
 
-#### 3. Set up Appwrite
+#### 3. Set up Appwrite Backend
 
-1.  **Create a Project:** Log in to your Appwrite Cloud account and create a new project.
-2.  **Copy Config:** In the project's root, rename `appwrite.config.json.example` to `appwrite.config.json` and fill in your Appwrite `projectId` and `endpoint`.
-3.  **Authentication:** Enable the Email/Password provider in the Auth section.
-4.  **Create Database & Collections:**
-    - Create a database named `events_db`.
-    - Inside `events_db`, create two collections:
-        - `events` (with attributes: `ownerUserId`, `title`, `slug`, `description`, `location`, `startAt`, `endAt`, `coverFileId`, `logoFileId`, `status`, `theme`)
-        - `rsvps` (with attributes: `eventId`, `name`, `email`, `ticketId`)
-5.  **Create Storage Buckets:**
-    - Create a bucket named `event-covers` for cover images.
-    - Create a bucket named `event-logos` for logos.
-6.  **Set Up API Key:** Create a Google AI API key for Genkit and add it to a `.env` file in the root of the project:
-    ```
-    GEMINI_API_KEY=your_google_ai_api_key
-    ```
+1. **Create a Project:** Log in to your Appwrite Cloud account and create a new project called "Eventola".
+
+2. **Configure Authentication:**
+   - Go to **Authentication** → **Settings**
+   - Enable **Email/Password** authentication method
+
+3. **Set up Environment Variables:**
+   Create a `.env.local` file in the project root:
+   ```env
+   APPWRITE_ENDPOINT=https://syd.cloud.appwrite.io/v1
+   APPWRITE_PROJECT_ID=your-project-id-here
+   GEMINI_API_KEY=your-google-ai-api-key
+   ```
+
+4. **Run the Automated Setup Script:**
+   ```bash
+   # Set your Appwrite server API key (create one in Appwrite Console → API Keys)
+   export APPWRITE_API_KEY=your-server-api-key
+
+   # Run the setup script
+   node setup-appwrite.js
+   ```
+
+   This script will automatically create:
+   - Database: `events_db`
+   - Collections: `events` and `rsvps`
+   - Storage buckets: `event-covers` and `event-logos`
+   - All necessary attributes and permissions
+
+5. **Manual Setup (Alternative):**
+   If the script doesn't work, you can set up manually in the Appwrite Console:
+
+   **Database Setup:**
+   - Create database: `events_db`
+   - Create collection `events` with attributes:
+     - `ownerUserId` (string, required)
+     - `title` (string, required)
+     - `slug` (string, required)
+     - `description` (string, required)
+     - `location` (string, required)
+     - `startAt` (datetime, required)
+     - `endAt` (datetime, required)
+     - `coverFileId` (string, optional)
+     - `logoFileId` (string, optional)
+     - `status` (string, required)
+     - `theme` (string, required)
+
+   - Create collection `rsvps` with attributes:
+     - `eventId` (string, required)
+     - `name` (string, required)
+     - `email` (string, required)
+     - `ticketId` (string, required)
+
+   **Storage Setup:**
+   - Create bucket `event-covers` for event cover images
+   - Create bucket `event-logos` for event logo images
+   - Set permissions to allow public read access
 
 
 #### 4. Run the Development Server

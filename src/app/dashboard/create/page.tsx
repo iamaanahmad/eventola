@@ -24,6 +24,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { account, databases, storage, ID } from '@/lib/appwrite';
+import { DATABASE_ID, EVENTS_COLLECTION_ID, COVERS_BUCKET_ID, LOGOS_BUCKET_ID } from '@/lib/appwrite-config';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/hooks/use-toast';
 import { AppwriteException } from 'appwrite';
@@ -43,11 +44,7 @@ const eventSchema = z.object({
 
 type EventFormValues = z.infer<typeof eventSchema>;
 
-// NOTE: These IDs are placeholders. You should create these in your Appwrite console.
-const DATABASE_ID = 'events_db';
-const EVENTS_COLLECTION_ID = 'events';
-const COVERS_BUCKET_ID = 'event-covers';
-const LOGOS_BUCKET_ID = 'event-logos';
+// NOTE: Database and storage IDs are imported from appwrite-config.ts
 
 
 export default function CreateEventPage() {

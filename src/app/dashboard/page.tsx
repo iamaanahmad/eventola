@@ -7,15 +7,13 @@ import Link from 'next/link';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useEffect, useState } from 'react';
 import { account, databases, storage } from '@/lib/appwrite';
+import { DATABASE_ID, EVENTS_COLLECTION_ID, COVERS_BUCKET_ID } from '@/lib/appwrite-config';
 import { Models, Query } from 'appwrite';
 import { useToast } from '@/hooks/use-toast';
 import { Skeleton } from '@/components/ui/skeleton';
 import { TaglineGenerator } from '@/components/tagline-generator';
 
-// NOTE: These IDs are placeholders. You should create these in your Appwrite console.
-const DATABASE_ID = 'events_db';
-const EVENTS_COLLECTION_ID = 'events';
-const COVERS_BUCKET_ID = 'event-covers';
+// NOTE: Database and storage IDs are imported from appwrite-config.ts
 
 interface EventDocument extends Models.Document {
   title: string;
@@ -68,10 +66,12 @@ export default function DashboardPage() {
             let coverUrl = `https://picsum.photos/300/200?random=${event.$id}`; 
             if (event.coverFileId) {
               try {
-                const url = storage.getFilePreview(COVERS_BUCKET_ID, event.coverFileId);
+                const url = storage.getFileView(COVERS_BUCKET_ID, event.coverFileId);
                 coverUrl = url.href;
               } catch (e) {
-                console.error("Failed to get file preview", e);
+                console.error("Failed to get file view", e);
+                // Fallback to direct URL construction
+                coverUrl = `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/storage/buckets/${COVERS_BUCKET_ID}/files/${event.coverFileId}/view?project=${process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID}`;
               }
             }
 

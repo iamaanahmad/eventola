@@ -17,6 +17,7 @@ import { Label } from '@/components/ui/label';
 import { notFound, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { databases, storage, ID, client } from '@/lib/appwrite';
+import { DATABASE_ID, EVENTS_COLLECTION_ID, RSVPS_COLLECTION_ID, COVERS_BUCKET_ID, LOGOS_BUCKET_ID } from '@/lib/appwrite-config';
 import { Models, Query, AppwriteException } from 'appwrite';
 import { useToast } from '@/hooks/use-toast';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -24,12 +25,7 @@ import { cn } from '@/lib/utils';
 import { Footer } from '@/components/footer';
 import { Countdown } from '@/components/countdown';
 
-// NOTE: These IDs are placeholders. You should create these in your Appwrite console.
-const DATABASE_ID = 'events_db';
-const EVENTS_COLLECTION_ID = 'events';
-const RSVPS_COLLECTION_ID = 'rsvps';
-const COVERS_BUCKET_ID = 'event-covers';
-const LOGOS_BUCKET_ID = 'event-logos';
+// NOTE: Database and storage IDs are imported from appwrite-config.ts
 
 
 interface EventDocument extends Models.Document {
@@ -171,15 +167,20 @@ function RsvpForm({ eventId, slug, onRsvpSuccess }: { eventId: string, slug: str
 }
 
 
-export default function EventPage({ params }: { params: { slug: string } }) {
+export default function EventPage({ params }: { params: Promise<{ slug: string }> }) {
   const [eventData, setEventData] = useState<EventData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [currentSlug, setCurrentSlug] = useState<string>('');
   const { toast } = useToast();
-  const { slug } = params;
   
   useEffect(() => {
     const fetchEvent = async () => {
+      // Properly unwrap the async params
+      const resolvedParams = await params;
+      const { slug } = resolvedParams;
+      
       if (!slug) return;
+      setCurrentSlug(slug);
       setIsLoading(true);
 
       if (slug === 'demo-event') {
@@ -209,26 +210,30 @@ export default function EventPage({ params }: { params: { slug: string } }) {
 
         if (event.coverFileId) {
           try {
-            const url = storage.getFilePreview(COVERS_BUCKET_ID, event.coverFileId);
+            const url = storage.getFileView(COVERS_BUCKET_ID, event.coverFileId);
             coverUrl = url.href;
           } catch (e) {
-            console.error("Failed to get file preview", e);
+            console.error("Failed to get file view", e);
+            // Fallback to direct URL construction
+            coverUrl = `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/storage/buckets/${COVERS_BUCKET_ID}/files/${event.coverFileId}/view?project=${process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID}`;
           }
         }
         
         if (event.logoFileId) {
           try {
-            const url = storage.getFilePreview(LOGOS_BUCKET_ID, event.logoFileId);
+            const url = storage.getFileView(LOGOS_BUCKET_ID, event.logoFileId);
             logoUrl = url.href;
           } catch (e) {
-            console.error("Failed to get logo file preview", e);
+            console.error("Failed to get logo file view", e);
+            // Fallback to direct URL construction
+            logoUrl = `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/storage/buckets/${LOGOS_BUCKET_ID}/files/${event.logoFileId}/view?project=${process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID}`;
           }
         }
         
         const rsvpResponse = await databases.listDocuments(
             DATABASE_ID,
             RSVPS_COLLECTION_ID,
-            [Query.equal('eventId', event.$id), Query.limit(0)]
+            [Query.equal('eventId', event.$id)]
         );
 
         setEventData({
@@ -257,7 +262,7 @@ export default function EventPage({ params }: { params: { slug: string } }) {
     };
 
     fetchEvent();
-  }, [slug, toast]);
+  }, [params, toast]);
   
   useEffect(() => {
     if (!eventData || eventData.id === 'demo-event') return;
@@ -376,7 +381,7 @@ export default function EventPage({ params }: { params: { slug: string } }) {
                     <span className="text-sm text-muted-foreground">people already attending</span>
                   </div>
                </div>
-               <RsvpForm eventId={id} slug={slug} onRsvpSuccess={handleRsvpSuccess} />
+               <RsvpForm eventId={id} slug={currentSlug} onRsvpSuccess={handleRsvpSuccess} />
             </Card>
           </div>
         </div>

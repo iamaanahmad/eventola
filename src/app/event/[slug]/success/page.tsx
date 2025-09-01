@@ -10,13 +10,21 @@ import { useSearchParams } from "next/navigation";
 import Confetti from 'react-confetti';
 import { useState, useEffect } from 'react';
 
-export default function RsvpSuccessPage({ params }: { params: { slug: string } }) {
+export default function RsvpSuccessPage({ params }: { params: Promise<{ slug: string }> }) {
   const searchParams = useSearchParams();
   const ticketId = searchParams.get('ticketId');
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const [isConfettiActive, setIsConfettiActive] = useState(true);
+  const [currentSlug, setCurrentSlug] = useState<string>('');
 
   useEffect(() => {
+    // Unwrap params and set slug
+    const getSlug = async () => {
+      const resolvedParams = await params;
+      setCurrentSlug(resolvedParams.slug);
+    };
+    getSlug();
+
     // This effect runs on the client-side
     setDimensions({ width: window.innerWidth, height: window.innerHeight });
     
@@ -25,7 +33,7 @@ export default function RsvpSuccessPage({ params }: { params: { slug: string } }
     }, 5000); // Stop confetti after 5 seconds
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [params]);
 
   if (!ticketId) {
     return (
@@ -36,7 +44,7 @@ export default function RsvpSuccessPage({ params }: { params: { slug: string } }
                   <CardDescription>No ticket ID found. Please try RSVPing again.</CardDescription>
               </CardHeader>
               <CardContent>
-                   <Link href={`/event/${params.slug}`} className="text-primary hover:underline">
+                   <Link href={`/event/${currentSlug}`} className="text-primary hover:underline">
                       &larr; Back to event page
                   </Link>
               </CardContent>
@@ -84,7 +92,7 @@ export default function RsvpSuccessPage({ params }: { params: { slug: string } }
                       </Button>
                   </div>
                   <div className="text-sm text-muted-foreground">
-                      <Link href={`/event/${params.slug}`} className="text-primary hover:underline">
+                      <Link href={`/event/${currentSlug}`} className="text-primary hover:underline">
                           &larr; Back to event page
                       </Link>
                   </div>
