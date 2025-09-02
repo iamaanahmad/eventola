@@ -1,4 +1,3 @@
-
 'use client';
 
 import { CheckCircle, Clock, Download, MapPin, Send, Users } from 'lucide-react';
@@ -24,9 +23,6 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
 import { Footer } from '@/components/footer';
 import { Countdown } from '@/components/countdown';
-
-// NOTE: Database and storage IDs are imported from appwrite-config.ts
-
 
 interface EventDocument extends Models.Document {
   title: string;
@@ -62,7 +58,7 @@ const DEMO_EVENT_DATA: EventData = {
     endTime: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000 + 8 * 60 * 60 * 1000), // 8 hours after start
     location: 'Cybernetics Convention Center, Neo-Tokyo',
     rsvpCount: 1337,
-    theme: 'quantum' // Default demo theme
+    theme: 'quantum'
 };
 
 
@@ -112,7 +108,6 @@ function RsvpForm({ eventId, slug, onRsvpSuccess }: { eventId: string, slug: str
         ticketId: ticketId,
       });
 
-      // No need to call onRsvpSuccess here anymore, realtime will handle it
       toast({
         title: "You're In!",
         description: "Your spot is confirmed. Redirecting...",
@@ -176,7 +171,6 @@ export default function EventPage({ params }: { params: Promise<{ slug: string }
   
   useEffect(() => {
     const fetchEvent = async () => {
-      // Properly unwrap the async params
       const resolvedParams = await params;
       const { slug } = resolvedParams;
       
@@ -185,7 +179,6 @@ export default function EventPage({ params }: { params: Promise<{ slug: string }
       setIsLoading(true);
 
       if (slug === 'demo-event') {
-          // For the demo, let's cycle through themes to showcase them
           const themes: EventData['theme'][] = ['quantum', 'warp', 'classic', 'minimal'];
           const randomTheme = themes[Math.floor(Math.random() * themes.length)];
           setEventData({ ...DEMO_EVENT_DATA, theme: randomTheme });
@@ -215,7 +208,6 @@ export default function EventPage({ params }: { params: Promise<{ slug: string }
             coverUrl = url.href;
           } catch (e) {
             console.error("Failed to get file view", e);
-            // Fallback to direct URL construction
             coverUrl = `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/storage/buckets/${COVERS_BUCKET_ID}/files/${event.coverFileId}/view?project=${process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID}`;
           }
         }
@@ -226,7 +218,6 @@ export default function EventPage({ params }: { params: Promise<{ slug: string }
             logoUrl = url.href;
           } catch (e) {
             console.error("Failed to get logo file view", e);
-            // Fallback to direct URL construction
             logoUrl = `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/storage/buckets/${LOGOS_BUCKET_ID}/files/${event.logoFileId}/view?project=${process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID}`;
           }
         }
@@ -305,8 +296,6 @@ export default function EventPage({ params }: { params: Promise<{ slug: string }
   const formattedTime = `${startTime.toLocaleTimeString('en-us', { hour: '2-digit', minute: '2-digit' })} - ${endTime.toLocaleTimeString('en-us', { hour: '2-digit', minute: '2-digit' })}`;
 
   const handleRsvpSuccess = () => {
-      // This function is kept in case we need it for other purposes,
-      // but the counter is now handled by the realtime subscription.
   }
 
   const mapEmbedUrl = `https://maps.google.com/maps?q=${encodeURIComponent(location)}&output=embed`;
@@ -403,5 +392,3 @@ export default function EventPage({ params }: { params: Promise<{ slug: string }
     </div>
   );
 }
-
-    

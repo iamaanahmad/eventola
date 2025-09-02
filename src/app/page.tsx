@@ -90,5 +90,3 @@ function FeatureCard({ step, title, description }: FeatureCardProps) {
     </Card>
   );
 }
-
-    

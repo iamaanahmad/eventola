@@ -16,6 +16,10 @@
 
 ---
 
+**TL;DR:** Eventola = 60-second event microsites with AI content, realtime RSVPs, and instant QR tickets. Built fully on Appwrite Sites.
+
+---
+
 ## 🎬 **DEMO TIME** 
 🔥 **[LIVE SITE](https://eventola.appwrite.network)** • 📱 **Mobile Optimized** • ⚡ **Real-time RSVPs**
 
@@ -40,7 +44,7 @@
 
 ---
 
-## � **Features That Convert**
+## ✨ **Features That Convert**
 
 <table>
 <tr>
@@ -237,7 +241,7 @@ Our setup script creates everything automatically:
 
 ## 🎮 **Try It Now - Interactive Demo**
 
-### � **For Judges & Developers**
+### 🎯 **For Judges & Developers**
 
 **🚀 Live Demo:** [https://eventola.appwrite.network](https://eventola.appwrite.network)
 
@@ -343,6 +347,16 @@ npm run start              # Start production server
 ✅ **Performance** - Optimized queries, lazy loading, image optimization  
 ✅ **Accessibility** - ARIA labels, keyboard navigation, screen reader friendly  
 ✅ **Mobile Experience** - Touch-optimized, responsive design  
+
+---
+
+## ✅ **Hackathon Compliance**
+- **🏆 Built entirely during Appwrite Sites Hackathon** - No pre-existing code
+- **🌐 Hosted on Appwrite Sites** - Live at https://eventola.appwrite.network
+- **📄 Open-source under MIT License** - Fully transparent codebase
+- **🔧 Uses multiple Appwrite services** - Auth, Database, Storage, Realtime
+- **⚡ Production-ready deployment** - Not just a demo, fully functional platform
+- **📱 Mobile-optimized experience** - Works perfectly on all devices
 
 ---
 

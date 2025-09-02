@@ -1,4 +1,3 @@
-
 'use client';
 
 import { Badge } from '@/components/ui/badge';
@@ -15,7 +14,7 @@ import { Label } from '@/components/ui/label';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { CalendarIcon, ChevronLeft, Sparkles, Upload, Wand2 } from 'lucide-react';
+import { CalendarIcon, ChevronLeft, Sparkles, Upload } from 'lucide-react';
 import Link from 'next/link';
 import { Calendar } from '@/components/ui/calendar';
 import { cn } from '@/lib/utils';
@@ -44,9 +43,6 @@ const eventSchema = z.object({
 });
 
 type EventFormValues = z.infer<typeof eventSchema>;
-
-// NOTE: Database and storage IDs are imported from appwrite-config.ts
-
 
 export default function CreateEventPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -140,24 +136,19 @@ export default function CreateEventPage() {
       let coverFileId: string | undefined = undefined;
       let logoFileId: string | undefined = undefined;
 
-      // 1. Upload cover image if it exists
       if (coverImage) {
         toast({ title: 'Uploading cover image...' });
         const fileResponse = await storage.createFile(COVERS_BUCKET_ID, ID.unique(), coverImage);
         coverFileId = fileResponse.$id;
       }
       
-      // 2. Upload logo image if it exists
       if (logoImage) {
         toast({ title: 'Uploading logo...' });
         const logoResponse = await storage.createFile(LOGOS_BUCKET_ID, ID.unique(), logoImage);
         logoFileId = logoResponse.$id;
       }
 
-      // 3. Get current user
       const user = await account.get();
-
-      // 4. Combine date and time
       const startAt = new Date(data.date);
       const [startHour, startMinute] = data.startTime.split(':').map(Number);
       startAt.setHours(startHour, startMinute);
@@ -166,10 +157,8 @@ export default function CreateEventPage() {
       const [endHour, endMinute] = data.endTime.split(':').map(Number);
       endAt.setHours(endHour, endMinute);
 
-      // 5. Create slug from title
       const slug = data.title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
 
-      // 6. Save event to database
       toast({ title: 'Saving event...' });
       await databases.createDocument(DATABASE_ID, EVENTS_COLLECTION_ID, ID.unique(), {
         ownerUserId: user.$id,
@@ -426,5 +415,3 @@ export default function CreateEventPage() {
     </form>
   );
 }
-
-    
