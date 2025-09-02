@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Badge } from '@/components/ui/badge';
@@ -204,7 +205,7 @@ export default function CreateEventPage() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="mx-auto grid max-w-[59rem] flex-1 auto-rows-max gap-4">
+    <form onSubmit={handleSubmit(onSubmit)} className="mx-auto grid max-w-full flex-1 auto-rows-max gap-4">
       <div className="flex items-center gap-4">
         <Button variant="outline" size="icon" className="h-7 w-7" asChild>
           <Link href="/dashboard">
@@ -227,7 +228,7 @@ export default function CreateEventPage() {
           </Button>
         </div>
       </div>
-      <div className="grid gap-4 md:grid-cols-[1fr_250px] lg:grid-cols-3 lg:gap-8">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
         <div className="grid auto-rows-max items-start gap-4 lg:col-span-2 lg:gap-8">
           <Card>
             <CardHeader>
@@ -406,7 +407,7 @@ export default function CreateEventPage() {
                         </p>
                       </div>
                     )}
-                    <input id="logo-dropzone-file" type="file" className="hidden" onChange={handleLogoImageChange} accept="image/png, image/jpeg, image/gif" />
+                    <input id="logo-dropzone-file" type="file" className="hidden" onChange={handleLogoImageChange} accept="image/png, image/jpeg, image/gif, image/svg+xml" />
                   </label>
                 </div>
               </div>
@@ -425,3 +426,5 @@ export default function CreateEventPage() {
     </form>
   );
 }
+
+    

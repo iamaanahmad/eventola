@@ -57,6 +57,7 @@ const DEMO_EVENT_DATA: EventData = {
     title: 'Quantum Futures Expo',
     description: "Join us for a journey into the future of technology. The Quantum Futures Expo is a two-day event showcasing the latest advancements in artificial intelligence, robotics, and virtual reality. Network with industry leaders, attend insightful talks, and witness groundbreaking demos that will redefine tomorrow.",
     coverUrl: 'https://picsum.photos/1200/800?random=demo',
+    logoUrl: 'https://picsum.photos/100/100?random=logo',
     startTime: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000), // 10 days from now
     endTime: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000 + 8 * 60 * 60 * 1000), // 8 hours after start
     location: 'Cybernetics Convention Center, Neo-Tokyo',
@@ -321,8 +322,8 @@ export default function EventPage({ params }: { params: Promise<{ slug: string }
           data-ai-hint="event cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/70 to-transparent" />
-        <div className="container relative z-10 text-white pb-12">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="container relative z-10 text-white pb-8 md:pb-12">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-end">
                 <div className="md:col-span-2 flex flex-col justify-end">
                     {logoUrl && (
                         <div className="relative h-20 w-20 mb-4 rounded-lg overflow-hidden border-2 border-white/20 bg-black/20 backdrop-blur-sm p-1 shadow-lg">
@@ -330,7 +331,7 @@ export default function EventPage({ params }: { params: Promise<{ slug: string }
                         </div>
                     )}
                     <h1 className={cn("text-4xl md:text-6xl font-bold tracking-tight", theme === 'classic' ? 'font-headline-serif' : 'font-headline')}>{title}</h1>
-                    <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-lg mt-4 font-medium">
+                    <div className="flex flex-col md:flex-row md:items-center gap-x-6 gap-y-2 text-lg mt-4 font-medium">
                         <div className="flex items-center gap-2">
                             <Clock className="w-5 h-5" />
                             <span>{formattedDate} &bull; {formattedTime}</span>
@@ -341,7 +342,7 @@ export default function EventPage({ params }: { params: Promise<{ slug: string }
                         </div>
                     </div>
                 </div>
-                 <div className="flex items-end">
+                 <div className="flex items-end justify-start md:justify-center">
                      <Countdown targetDate={startTime} />
                 </div>
             </div>
@@ -402,3 +403,5 @@ export default function EventPage({ params }: { params: Promise<{ slug: string }
     </div>
   );
 }
+
+    

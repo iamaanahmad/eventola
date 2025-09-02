@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -28,9 +29,12 @@ export function Countdown({ targetDate }: CountdownProps) {
     };
   };
 
-  const [timeLeft, setTimeLeft] = useState<TimeLeft | null>(calculateTimeLeft());
+  const [timeLeft, setTimeLeft] = useState<TimeLeft | null>(null);
 
   useEffect(() => {
+    // Set initial value on client mount to avoid hydration mismatch
+    setTimeLeft(calculateTimeLeft());
+
     const timer = setInterval(() => {
       setTimeLeft(calculateTimeLeft());
     }, 1000);
@@ -40,19 +44,17 @@ export function Countdown({ targetDate }: CountdownProps) {
   }, [targetDate]);
 
   if (!timeLeft) {
-    return <div className="text-2xl font-bold text-primary">The event has started!</div>;
+    return <div className="text-xl md:text-2xl font-bold text-primary">The event has started!</div>;
   }
 
-  const formatUnit = (value: number) => value.toString().padStart(2, '0');
-
   return (
-    <div className="flex items-center justify-center gap-4 text-center">
+    <div className="flex items-center justify-center gap-2 md:gap-4 text-center">
       <TimeUnit value={timeLeft.days} label="Days" />
-      <div className="text-4xl font-bold text-primary pb-8">:</div>
+      <div className="text-2xl md:text-4xl font-bold text-primary pb-6 md:pb-8">:</div>
       <TimeUnit value={timeLeft.hours} label="Hours" />
-      <div className="text-4xl font-bold text-primary pb-8">:</div>
+      <div className="text-2xl md:text-4xl font-bold text-primary pb-6 md:pb-8">:</div>
       <TimeUnit value={timeLeft.minutes} label="Minutes" />
-      <div className="text-4xl font-bold text-primary pb-8">:</div>
+      <div className="text-2xl md:text-4xl font-bold text-primary pb-6 md:pb-8">:</div>
       <TimeUnit value={timeLeft.seconds} label="Seconds" />
     </div>
   );
@@ -60,9 +62,11 @@ export function Countdown({ targetDate }: CountdownProps) {
 
 function TimeUnit({ value, label }: { value: number; label: string }) {
   return (
-    <div className="flex flex-col items-center justify-center w-24 h-24 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20">
-      <span className="text-4xl font-bold tracking-tighter">{value.toString().padStart(2, '0')}</span>
-      <span className="text-sm font-medium uppercase tracking-widest text-white/70">{label}</span>
+    <div className="flex flex-col items-center justify-center w-16 h-16 md:w-24 md:h-24 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20">
+      <span className="text-2xl md:text-4xl font-bold tracking-tighter">{value.toString().padStart(2, '0')}</span>
+      <span className="text-xs md:text-sm font-medium uppercase tracking-widest text-white/70">{label}</span>
     </div>
   );
 }
+
+    
