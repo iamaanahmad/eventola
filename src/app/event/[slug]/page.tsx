@@ -312,7 +312,7 @@ export default function EventPage({ params }: { params: Promise<{ slug: string }
 
   return (
     <div className={cn('event-page', `theme-${theme}`)}>
-      <section className="relative h-96 w-full">
+      <section className="relative h-[60vh] min-h-[400px] w-full flex items-end">
          <Image
           src={coverUrl}
           alt={title}
@@ -320,56 +320,68 @@ export default function EventPage({ params }: { params: Promise<{ slug: string }
           className="object-cover"
           data-ai-hint="event cover"
         />
-        <div className="absolute inset-0 bg-black/60" />
-        <div className="container relative mx-auto h-full flex flex-col items-center justify-center text-center text-white z-10">
-          {logoUrl && (
-            <div className="relative h-24 w-24 mb-4 rounded-full overflow-hidden border-2 border-white/50 shadow-lg">
-                <Image src={logoUrl} alt={`${title} logo`} fill className="object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/70 to-transparent" />
+        <div className="container relative z-10 text-white pb-12">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="md:col-span-2 flex flex-col justify-end">
+                    {logoUrl && (
+                        <div className="relative h-20 w-20 mb-4 rounded-lg overflow-hidden border-2 border-white/20 bg-black/20 backdrop-blur-sm p-1 shadow-lg">
+                            <Image src={logoUrl} alt={`${title} logo`} fill className="object-contain" />
+                        </div>
+                    )}
+                    <h1 className={cn("text-4xl md:text-6xl font-bold tracking-tight", theme === 'classic' ? 'font-headline-serif' : 'font-headline')}>{title}</h1>
+                    <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-lg mt-4 font-medium">
+                        <div className="flex items-center gap-2">
+                            <Clock className="w-5 h-5" />
+                            <span>{formattedDate} &bull; {formattedTime}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <MapPin className="w-5 h-5" />
+                            <span>{location}</span>
+                        </div>
+                    </div>
+                </div>
+                 <div className="flex items-end">
+                     <Countdown targetDate={startTime} />
+                </div>
             </div>
-          )}
-          <h1 className={cn("text-4xl md:text-6xl font-bold tracking-tight", theme === 'classic' ? 'font-headline-serif' : 'font-headline')}>{title}</h1>
-          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-lg mt-4 font-medium">
-              <div className="flex items-center gap-2">
-                <Clock className="w-5 h-5" />
-                <span>{formattedDate} &bull; {formattedTime}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <MapPin className="w-5 h-5" />
-                <span>{location}</span>
-              </div>
-          </div>
-          <div className="mt-8">
-            <Countdown targetDate={startTime} />
-          </div>
         </div>
       </section>
 
-      <div className="container mx-auto px-4 py-8 md:py-12">
+      <div className="container mx-auto px-4 py-8 md:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12">
           
           <div className="lg:col-span-2 space-y-12">
-             <div>
-                <h2 className={cn("text-2xl font-bold mb-4", theme === 'classic' ? 'font-headline-serif' : 'font-headline')}>About this Event</h2>
-                <div className="prose prose-lg dark:prose-invert max-w-none text-foreground/80">
-                    <p>{description}</p>
-                </div>
-             </div>
-             <div>
-                <h2 className={cn("text-2xl font-bold mb-4", theme === 'classic' ? 'font-headline-serif' : 'font-headline')}>Location</h2>
-                <div className="aspect-video w-full rounded-lg overflow-hidden border">
-                    <iframe
-                        width="100%"
-                        height="100%"
-                        frameBorder="0"
-                        scrolling="no"
-                        marginHeight={0}
-                        marginWidth={0}
-                        src={mapEmbedUrl}
-                        title={location}
-                        aria-label={location}
-                    ></iframe>
-                </div>
-             </div>
+             <Card>
+                <CardHeader>
+                    <CardTitle className={cn("text-2xl", theme === 'classic' ? 'font-headline-serif' : 'font-headline')}>About this Event</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <div className="prose prose-lg dark:prose-invert max-w-none text-foreground/80">
+                        <p>{description}</p>
+                    </div>
+                </CardContent>
+             </Card>
+             <Card>
+                <CardHeader>
+                    <CardTitle className={cn("text-2xl", theme === 'classic' ? 'font-headline-serif' : 'font-headline')}>Location</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <div className="aspect-video w-full rounded-lg overflow-hidden border">
+                        <iframe
+                            width="100%"
+                            height="100%"
+                            frameBorder="0"
+                            scrolling="no"
+                            marginHeight={0}
+                            marginWidth={0}
+                            src={mapEmbedUrl}
+                            title={location}
+                            aria-label={location}
+                        ></iframe>
+                    </div>
+                </CardContent>
+             </Card>
           </div>
 
           <div>
