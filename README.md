@@ -385,4 +385,4 @@ Every feature just works, and the integration is seamless. Keep building amazing
 
 </div>
 
-**🌟 Star this repo if Eventola impressed you!**
+**⭐ Star this repo if Eventola impressed you!**
