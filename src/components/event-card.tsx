@@ -61,9 +61,9 @@ export function EventCard({ title, slug, date, location, coverUrl, attendees, st
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
                     <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                    <DropdownMenuItem>Edit</DropdownMenuItem>
-                    <DropdownMenuItem>View Attendees</DropdownMenuItem>
-                    <DropdownMenuItem className="text-destructive focus:text-destructive-foreground focus:bg-destructive">Delete</DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => alert('Edit functionality coming soon!')}>Edit</DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => alert('Viewing attendees coming soon!')}>View Attendees</DropdownMenuItem>
+                    <DropdownMenuItem className="text-destructive focus:text-destructive-foreground focus:bg-destructive" onClick={() => confirm('Are you sure you want to delete this event?')}>Delete</DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
             </CardFooter>
