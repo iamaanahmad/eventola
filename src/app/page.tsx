@@ -1,3 +1,4 @@
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { LayoutTemplate, QrCode, Users } from "lucide-react";
 import { Header } from "@/components/header";
@@ -22,7 +23,7 @@ export default function Home() {
             <p className="mt-4 max-w-2xl mx-auto text-lg text-muted-foreground">
              Turn ideas into events with a shareable microsite—live RSVPs and QR tickets included.
             </p>
-            <div className="mt-8 flex justify-center gap-4">
+            <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
                <Button asChild size="lg">
                   <Link href="/register">✨ Create Your Event</Link>
                 </Button>
@@ -37,7 +38,7 @@ export default function Home() {
             <p className="mt-3 max-w-xl mx-auto text-muted-foreground">
              Launch your next event in four simple steps.
             </p>
-            <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-4">
+            <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               <FeatureCard
                 step="1"
                 title="Create Account"

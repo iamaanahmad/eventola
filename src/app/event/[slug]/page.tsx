@@ -1,4 +1,3 @@
-
 'use client';
 
 import { CheckCircle, Clock, Download, MapPin, Send, Users } from 'lucide-react';
@@ -24,9 +23,6 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
 import { Footer } from '@/components/footer';
 import { Countdown } from '@/components/countdown';
-
-// NOTE: Database and storage IDs are imported from appwrite-config.ts
-
 
 interface EventDocument extends Models.Document {
   title: string;
@@ -57,11 +53,12 @@ const DEMO_EVENT_DATA: EventData = {
     title: 'Quantum Futures Expo',
     description: "Join us for a journey into the future of technology. The Quantum Futures Expo is a two-day event showcasing the latest advancements in artificial intelligence, robotics, and virtual reality. Network with industry leaders, attend insightful talks, and witness groundbreaking demos that will redefine tomorrow.",
     coverUrl: 'https://picsum.photos/1200/800?random=demo',
+    logoUrl: 'https://picsum.photos/100/100?random=logo',
     startTime: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000), // 10 days from now
     endTime: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000 + 8 * 60 * 60 * 1000), // 8 hours after start
     location: 'Cybernetics Convention Center, Neo-Tokyo',
     rsvpCount: 1337,
-    theme: 'quantum' // Default demo theme
+    theme: 'quantum'
 };
 
 
@@ -111,7 +108,6 @@ function RsvpForm({ eventId, slug, onRsvpSuccess }: { eventId: string, slug: str
         ticketId: ticketId,
       });
 
-      // No need to call onRsvpSuccess here anymore, realtime will handle it
       toast({
         title: "You're In!",
         description: "Your spot is confirmed. Redirecting...",
@@ -175,7 +171,6 @@ export default function EventPage({ params }: { params: Promise<{ slug: string }
   
   useEffect(() => {
     const fetchEvent = async () => {
-      // Properly unwrap the async params
       const resolvedParams = await params;
       const { slug } = resolvedParams;
       
@@ -184,7 +179,6 @@ export default function EventPage({ params }: { params: Promise<{ slug: string }
       setIsLoading(true);
 
       if (slug === 'demo-event') {
-          // For the demo, let's cycle through themes to showcase them
           const themes: EventData['theme'][] = ['quantum', 'warp', 'classic', 'minimal'];
           const randomTheme = themes[Math.floor(Math.random() * themes.length)];
           setEventData({ ...DEMO_EVENT_DATA, theme: randomTheme });
@@ -214,7 +208,6 @@ export default function EventPage({ params }: { params: Promise<{ slug: string }
             coverUrl = url.href;
           } catch (e) {
             console.error("Failed to get file view", e);
-            // Fallback to direct URL construction
             coverUrl = `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/storage/buckets/${COVERS_BUCKET_ID}/files/${event.coverFileId}/view?project=${process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID}`;
           }
         }
@@ -225,7 +218,6 @@ export default function EventPage({ params }: { params: Promise<{ slug: string }
             logoUrl = url.href;
           } catch (e) {
             console.error("Failed to get logo file view", e);
-            // Fallback to direct URL construction
             logoUrl = `${process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT}/storage/buckets/${LOGOS_BUCKET_ID}/files/${event.logoFileId}/view?project=${process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID}`;
           }
         }
@@ -304,15 +296,13 @@ export default function EventPage({ params }: { params: Promise<{ slug: string }
   const formattedTime = `${startTime.toLocaleTimeString('en-us', { hour: '2-digit', minute: '2-digit' })} - ${endTime.toLocaleTimeString('en-us', { hour: '2-digit', minute: '2-digit' })}`;
 
   const handleRsvpSuccess = () => {
-      // This function is kept in case we need it for other purposes,
-      // but the counter is now handled by the realtime subscription.
   }
 
   const mapEmbedUrl = `https://maps.google.com/maps?q=${encodeURIComponent(location)}&output=embed`;
 
   return (
     <div className={cn('event-page', `theme-${theme}`)}>
-      <section className="relative h-96 w-full">
+      <section className="relative h-[60vh] min-h-[400px] w-full flex items-end">
          <Image
           src={coverUrl}
           alt={title}
@@ -320,56 +310,68 @@ export default function EventPage({ params }: { params: Promise<{ slug: string }
           className="object-cover"
           data-ai-hint="event cover"
         />
-        <div className="absolute inset-0 bg-black/60" />
-        <div className="container relative mx-auto h-full flex flex-col items-center justify-center text-center text-white z-10">
-          {logoUrl && (
-            <div className="relative h-24 w-24 mb-4 rounded-full overflow-hidden border-2 border-white/50 shadow-lg">
-                <Image src={logoUrl} alt={`${title} logo`} fill className="object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/70 to-transparent" />
+        <div className="container relative z-10 text-white pb-8 md:pb-12">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-end">
+                <div className="md:col-span-2 flex flex-col justify-end">
+                    {logoUrl && (
+                        <div className="relative h-20 w-20 mb-4 rounded-lg overflow-hidden border-2 border-white/20 bg-black/20 backdrop-blur-sm p-1 shadow-lg">
+                            <Image src={logoUrl} alt={`${title} logo`} fill className="object-contain" />
+                        </div>
+                    )}
+                    <h1 className={cn("text-4xl md:text-6xl font-bold tracking-tight", theme === 'classic' ? 'font-headline-serif' : 'font-headline')}>{title}</h1>
+                    <div className="flex flex-col md:flex-row md:items-center gap-x-6 gap-y-2 text-lg mt-4 font-medium">
+                        <div className="flex items-center gap-2">
+                            <Clock className="w-5 h-5" />
+                            <span>{formattedDate} &bull; {formattedTime}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <MapPin className="w-5 h-5" />
+                            <span>{location}</span>
+                        </div>
+                    </div>
+                </div>
+                 <div className="flex items-end justify-start md:justify-center">
+                     <Countdown targetDate={startTime} />
+                </div>
             </div>
-          )}
-          <h1 className={cn("text-4xl md:text-6xl font-bold tracking-tight", theme === 'classic' ? 'font-headline-serif' : 'font-headline')}>{title}</h1>
-          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-lg mt-4 font-medium">
-              <div className="flex items-center gap-2">
-                <Clock className="w-5 h-5" />
-                <span>{formattedDate} &bull; {formattedTime}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <MapPin className="w-5 h-5" />
-                <span>{location}</span>
-              </div>
-          </div>
-          <div className="mt-8">
-            <Countdown targetDate={startTime} />
-          </div>
         </div>
       </section>
 
-      <div className="container mx-auto px-4 py-8 md:py-12">
+      <div className="container mx-auto px-4 py-8 md:py-16">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12">
           
           <div className="lg:col-span-2 space-y-12">
-             <div>
-                <h2 className={cn("text-2xl font-bold mb-4", theme === 'classic' ? 'font-headline-serif' : 'font-headline')}>About this Event</h2>
-                <div className="prose prose-lg dark:prose-invert max-w-none text-foreground/80">
-                    <p>{description}</p>
-                </div>
-             </div>
-             <div>
-                <h2 className={cn("text-2xl font-bold mb-4", theme === 'classic' ? 'font-headline-serif' : 'font-headline')}>Location</h2>
-                <div className="aspect-video w-full rounded-lg overflow-hidden border">
-                    <iframe
-                        width="100%"
-                        height="100%"
-                        frameBorder="0"
-                        scrolling="no"
-                        marginHeight={0}
-                        marginWidth={0}
-                        src={mapEmbedUrl}
-                        title={location}
-                        aria-label={location}
-                    ></iframe>
-                </div>
-             </div>
+             <Card>
+                <CardHeader>
+                    <CardTitle className={cn("text-2xl", theme === 'classic' ? 'font-headline-serif' : 'font-headline')}>About this Event</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <div className="prose prose-lg dark:prose-invert max-w-none text-foreground/80">
+                        <p>{description}</p>
+                    </div>
+                </CardContent>
+             </Card>
+             <Card>
+                <CardHeader>
+                    <CardTitle className={cn("text-2xl", theme === 'classic' ? 'font-headline-serif' : 'font-headline')}>Location</CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <div className="aspect-video w-full rounded-lg overflow-hidden border">
+                        <iframe
+                            width="100%"
+                            height="100%"
+                            frameBorder="0"
+                            scrolling="no"
+                            marginHeight={0}
+                            marginWidth={0}
+                            src={mapEmbedUrl}
+                            title={location}
+                            aria-label={location}
+                        ></iframe>
+                    </div>
+                </CardContent>
+             </Card>
           </div>
 
           <div>

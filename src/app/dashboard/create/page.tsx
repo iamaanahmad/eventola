@@ -14,7 +14,7 @@ import { Label } from '@/components/ui/label';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { CalendarIcon, ChevronLeft, Sparkles, Upload, Wand2 } from 'lucide-react';
+import { CalendarIcon, ChevronLeft, Sparkles, Upload } from 'lucide-react';
 import Link from 'next/link';
 import { Calendar } from '@/components/ui/calendar';
 import { cn } from '@/lib/utils';
@@ -43,9 +43,6 @@ const eventSchema = z.object({
 });
 
 type EventFormValues = z.infer<typeof eventSchema>;
-
-// NOTE: Database and storage IDs are imported from appwrite-config.ts
-
 
 export default function CreateEventPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -139,24 +136,19 @@ export default function CreateEventPage() {
       let coverFileId: string | undefined = undefined;
       let logoFileId: string | undefined = undefined;
 
-      // 1. Upload cover image if it exists
       if (coverImage) {
         toast({ title: 'Uploading cover image...' });
         const fileResponse = await storage.createFile(COVERS_BUCKET_ID, ID.unique(), coverImage);
         coverFileId = fileResponse.$id;
       }
       
-      // 2. Upload logo image if it exists
       if (logoImage) {
         toast({ title: 'Uploading logo...' });
         const logoResponse = await storage.createFile(LOGOS_BUCKET_ID, ID.unique(), logoImage);
         logoFileId = logoResponse.$id;
       }
 
-      // 3. Get current user
       const user = await account.get();
-
-      // 4. Combine date and time
       const startAt = new Date(data.date);
       const [startHour, startMinute] = data.startTime.split(':').map(Number);
       startAt.setHours(startHour, startMinute);
@@ -165,10 +157,8 @@ export default function CreateEventPage() {
       const [endHour, endMinute] = data.endTime.split(':').map(Number);
       endAt.setHours(endHour, endMinute);
 
-      // 5. Create slug from title
       const slug = data.title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
 
-      // 6. Save event to database
       toast({ title: 'Saving event...' });
       await databases.createDocument(DATABASE_ID, EVENTS_COLLECTION_ID, ID.unique(), {
         ownerUserId: user.$id,
@@ -204,7 +194,7 @@ export default function CreateEventPage() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="mx-auto grid max-w-[59rem] flex-1 auto-rows-max gap-4">
+    <form onSubmit={handleSubmit(onSubmit)} className="mx-auto grid max-w-full flex-1 auto-rows-max gap-4">
       <div className="flex items-center gap-4">
         <Button variant="outline" size="icon" className="h-7 w-7" asChild>
           <Link href="/dashboard">
@@ -227,7 +217,7 @@ export default function CreateEventPage() {
           </Button>
         </div>
       </div>
-      <div className="grid gap-4 md:grid-cols-[1fr_250px] lg:grid-cols-3 lg:gap-8">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
         <div className="grid auto-rows-max items-start gap-4 lg:col-span-2 lg:gap-8">
           <Card>
             <CardHeader>
@@ -406,7 +396,7 @@ export default function CreateEventPage() {
                         </p>
                       </div>
                     )}
-                    <input id="logo-dropzone-file" type="file" className="hidden" onChange={handleLogoImageChange} accept="image/png, image/jpeg, image/gif" />
+                    <input id="logo-dropzone-file" type="file" className="hidden" onChange={handleLogoImageChange} accept="image/png, image/jpeg, image/gif, image/svg+xml" />
                   </label>
                 </div>
               </div>
