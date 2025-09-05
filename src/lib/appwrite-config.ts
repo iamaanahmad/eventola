@@ -22,6 +22,7 @@ export const EVENT_ATTRIBUTES = [
   { key: 'logoFileId', type: 'string', required: false, size: 255 },
   { key: 'status', type: 'string', required: true, size: 50 },
   { key: 'theme', type: 'string', required: true, size: 50 },
+  { key: 'isPublic', type: 'boolean', required: true, default: true },
 ];
 
 // RSVP Collection Attributes

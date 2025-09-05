@@ -40,6 +40,7 @@ const eventSchema = z.object({
   endTime: z.string().regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, 'Invalid time format.'),
   status: z.enum(['draft', 'published']),
   theme: z.enum(['minimal', 'warp', 'quantum', 'classic']),
+  isPublic: z.boolean().default(true),
 });
 
 type EventFormValues = z.infer<typeof eventSchema>;
@@ -72,6 +73,7 @@ export default function CreateEventPage() {
       endTime: '17:00',
       status: 'draft',
       theme: 'minimal',
+      isPublic: true,
     },
   });
   
@@ -172,6 +174,7 @@ export default function CreateEventPage() {
         logoFileId,
         status: data.status,
         theme: data.theme,
+        isPublic: data.isPublic,
       });
 
       toast({
@@ -341,6 +344,27 @@ export default function CreateEventPage() {
                         </Select>
                     )}
                     />
+                </div>
+                <div className="grid gap-3">
+                  <Label htmlFor="privacy">Privacy</Label>
+                  <Controller
+                    name="isPublic"
+                    control={control}
+                    render={({ field }) => (
+                        <Select onValueChange={(value) => field.onChange(value === 'true')} defaultValue={field.value ? 'true' : 'false'}>
+                            <SelectTrigger id="privacy" aria-label="Select privacy">
+                                <SelectValue placeholder="Select privacy" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="true">Public - Discoverable</SelectItem>
+                                <SelectItem value="false">Private - Invite only</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    )}
+                    />
+                  <p className="text-xs text-muted-foreground">
+                    Public events appear in Discover page. Private events require direct links.
+                  </p>
                 </div>
               </div>
             </CardContent>

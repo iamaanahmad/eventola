@@ -35,6 +35,7 @@ export function Header() {
         </Link>
         <nav className="flex-1 items-center space-x-6 hidden md:flex">
            <Link href="/" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">Home</Link>
+           <Link href="/discover" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">Discover</Link>
            <Link href="/about" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">About</Link>
         </nav>
         <div className="flex flex-1 items-center justify-end space-x-2">

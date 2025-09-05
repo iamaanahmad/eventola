@@ -71,6 +71,14 @@ async function setupDatabase() {
           attr.key,
           attr.required
         );
+      } else if (attr.type === 'boolean') {
+        await databases.createBooleanAttribute(
+          DATABASE_ID,
+          EVENTS_COLLECTION_ID,
+          attr.key,
+          attr.required,
+          attr.default || false
+        );
       }
       console.log(`  ✅ Added ${attr.key} attribute`);
     }

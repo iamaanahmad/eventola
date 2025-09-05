@@ -51,7 +51,7 @@ interface EventData {
 const DEMO_EVENT_DATA: EventData = {
     id: 'demo-event',
     title: 'FutureSpark 2025 – The AI & Innovation Meetup',
-    description: "FutureSpark 2025 is an interactive showcase of cutting-edge technologies, bringing together developers, designers, entrepreneurs, and AI enthusiasts.\n\n• ⚡ Live coding battles & hack demos\n\n• 🤖 AI startup pitches\n\n• 🎤 Talks from industry leaders\n\n• 🎉 Networking and collaboration\n\nJoin us to explore the future of AI, design, and innovation — in one electrifying evening.",
+    description: "FutureSpark 2025 is an interactive showcase of cutting-edge technologies, bringing together developers, designers, entrepreneurs, and AI enthusiasts.\n\n⚡ Live coding battles & hack demos\n\n🤖 AI startup pitches\n\n🎤 Talks from industry leaders\n\n🎉 Networking and collaboration\n\nJoin us to explore the future of AI, design, and innovation — in one electrifying evening.",
     coverUrl: 'https://i.ibb.co/pr1CHX3D/innovation-abstract.jpg',
     logoUrl: 'https://i.ibb.co/1GBx9bX1/image.png',
     startTime: new Date('2025-09-15T18:00:00'), // September 15, 2025, 6:00 PM
