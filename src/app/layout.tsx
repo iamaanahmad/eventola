@@ -8,6 +8,11 @@ import { ThemeProvider } from '@/components/theme-provider';
 export const metadata: Metadata = {
   title: 'Eventola - Create event pages in 60 seconds.',
   description: 'Beautiful event microsites with realtime RSVPs & QR tickets.',
+  icons: {
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
+    apple: '/logo.svg',
+  },
 };
 
 const inter = Inter({

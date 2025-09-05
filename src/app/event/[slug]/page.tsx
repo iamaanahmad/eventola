@@ -50,13 +50,13 @@ interface EventData {
 
 const DEMO_EVENT_DATA: EventData = {
     id: 'demo-event',
-    title: 'Quantum Futures Expo',
-    description: "Join us for a journey into the future of technology. The Quantum Futures Expo is a two-day event showcasing the latest advancements in artificial intelligence, robotics, and virtual reality. Network with industry leaders, attend insightful talks, and witness groundbreaking demos that will redefine tomorrow.",
-    coverUrl: 'https://picsum.photos/1200/800?random=demo',
-    logoUrl: 'https://picsum.photos/100/100?random=logo',
-    startTime: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000), // 10 days from now
-    endTime: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000 + 8 * 60 * 60 * 1000), // 8 hours after start
-    location: 'Cybernetics Convention Center, Neo-Tokyo',
+    title: 'FutureSpark 2025 – The AI & Innovation Meetup',
+    description: "FutureSpark 2025 is an interactive showcase of cutting-edge technologies, bringing together developers, designers, entrepreneurs, and AI enthusiasts.\n\n• ⚡ Live coding battles & hack demos\n\n• 🤖 AI startup pitches\n\n• 🎤 Talks from industry leaders\n\n• 🎉 Networking and collaboration\n\nJoin us to explore the future of AI, design, and innovation — in one electrifying evening.",
+    coverUrl: 'https://i.ibb.co/pr1CHX3D/innovation-abstract.jpg',
+    logoUrl: 'https://i.ibb.co/1GBx9bX1/image.png',
+    startTime: new Date('2025-09-15T18:00:00'), // September 15, 2025, 6:00 PM
+    endTime: new Date('2025-09-15T22:00:00'), // September 15, 2025, 10:00 PM
+    location: 'T-Hub, Hyderabad, India',
     rsvpCount: 1337,
     theme: 'quantum'
 };
