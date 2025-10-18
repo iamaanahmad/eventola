@@ -10,11 +10,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "typecheck": "tsc --noEmit",
-    "setup:appwrite": "node setup-appwrite-v15.js",
-    "test:appwrite": "node test-appwrite-v15.js",
-    "fix:permissions": "node fix-permissions.js",
-    "fix:storage": "node fix-storage-permissions.js"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@genkit-ai/googleai": "^1.14.1",

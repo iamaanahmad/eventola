@@ -2,7 +2,6 @@
 # 🚀 Eventola - AI-Powered Event Microsites That Convert
 
 <div align="center">
-  <img src="https://img.shields.io/badge/🏆_Hackathon_Project-Appwrite_Sites-ff0066?style=for-the-badge&logo=appwrite" alt="Hackathon Badge" />
   <img src="https://img.shields.io/badge/Next.js-15.3.3-black?style=for-the-badge&logo=next.js" alt="Next.js" />
   <img src="https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript" alt="TypeScript" />
   <img src="https://img.shields.io/badge/Appwrite-1.5-ff0066?style=for-the-badge&logo=appwrite" alt="Appwrite" />
@@ -75,34 +74,6 @@
 </td>
 </tr>
 </table>
-
----
-
-## 🏆 **Hackathon Excellence - Why We'll Win**
-
-### 🎯 **Technical Innovation**
-- **💯 Full Appwrite Integration** - Auth + Database + Storage + Realtime
-- **🤖 AI at the Core** - Not just an add-on, AI powers the workflow
-- **⚡ Real-time Features** - Live RSVP counter shows Appwrite's power
-- **🚀 Next.js 15 + Turbopack** - Cutting-edge performance
-
-### 🎨 **Design Excellence**
-- **4 Premium Themes** - Each with unique gradients, animations, typography
-- **📱 Mobile-First** - Perfect experience on every device
-- **🎭 Brand Flexibility** - Themes adapt to any event style
-- **💫 Micro-interactions** - Every click feels premium
-
-### 🔧 **Developer Experience**
-- **TypeScript Throughout** - Type-safe development
-- **Component Library** - ShadCN/UI for consistency
-- **Automated Setup** - One-command Appwrite configuration
-- **Clean Architecture** - Maintainable, scalable codebase
-
-### 🚀 **Real-World Impact**
-- **Event Organizers Save Hours** - No more hiring developers
-- **Higher RSVP Rates** - Beautiful pages convert better
-- **Professional Results** - Enterprise-quality output
-- **Immediate Value** - Working solution, not just a demo
 
 ---
 
@@ -241,7 +212,7 @@ Our setup script creates everything automatically:
 
 ## 🎮 **Try It Now - Interactive Demo**
 
-### 🎯 **For Judges & Developers**
+### 🎯 **For Developers**
 
 **🚀 Live Demo:** [https://eventola.appwrite.network](https://eventola.appwrite.network)
 
@@ -253,16 +224,6 @@ Our setup script creates everything automatically:
 5. **🌐 View Live Page** → `See your microsite`
 6. **👥 Test RSVP** → `Watch counter update live`
 7. **🎟️ Get QR Ticket** → `Instant ticket generation`
-
-### 🎯 **Test Credentials** 
-*For quick judge access:*
-
-```
-📧 Email: judge@eventola.com
-🔐 Password: HackathonDemo2024
-```
-
-*(Create this account on first visit via `/register`)*
 
 ### 🧪 **Development Commands**
 
@@ -305,43 +266,9 @@ npm run start              # Start production server
 
 ---
 
-## 🏆 **Why Eventola Wins This Hackathon**
+## ✅ **Production-Ready Quality**
 
-<div align="center">
-
-### 🎯 **Perfect Appwrite Showcase**
-*Every major Appwrite feature integrated seamlessly*
-
-| Feature | Implementation | Impact |
-|:---|:---|:---|
-| 🔐 **Authentication** | Full email/password flow | Secure organizer accounts |
-| 📊 **Database** | 2 collections, 15 attributes | Complete data modeling |
-| 💾 **Storage** | 2 buckets, file management | Professional image handling |
-| ⚡ **Realtime** | Live RSVP counter | Instant social proof |
-| 🛡️ **Permissions** | Role-based access control | Enterprise-grade security |
-
-</div>
-
-### 🚀 **Innovation That Matters**
-
-**🤖 AI Integration That Actually Helps**
-- Not just a gimmick - saves real time for organizers
-- Context-aware content generation
-- Integrated into core workflow
-
-**⚡ Real-time Features That Wow**
-- Live RSVP counter creates social proof
-- Instant updates across all devices
-- Perfect demonstration of Appwrite Realtime
-
-**🎨 Design That Converts**
-- 4 professional themes, not basic templates
-- Mobile-first responsive design
-- Micro-interactions and animations
-
-### 🎯 **Production-Ready Quality**
-
-✅ **Complete Feature Set** - Not just a demo, fully functional platform  
+✅ **Complete Feature Set** - Fully functional platform  
 ✅ **Error Handling** - Graceful failures and user feedback  
 ✅ **Type Safety** - End-to-end TypeScript implementation  
 ✅ **Performance** - Optimized queries, lazy loading, image optimization  
@@ -350,27 +277,17 @@ npm run start              # Start production server
 
 ---
 
-## ✅ **Hackathon Compliance**
-- **🏆 Built entirely during Appwrite Sites Hackathon** - No pre-existing code
-- **🌐 Hosted on Appwrite Sites** - Live at https://eventola.appwrite.network
-- **📄 Open-source under MIT License** - Fully transparent codebase
-- **🔧 Uses multiple Appwrite services** - Auth, Database, Storage, Realtime
-- **⚡ Production-ready deployment** - Not just a demo, fully functional platform
-- **📱 Mobile-optimized experience** - Works perfectly on all devices
-
----
-
 ## 🤝 **Built by Passionate Developers**
 
 <div align="center">
 
-**📧 Contact:** [iamaanahmad@gmail.com](mailto:iamaanahmad@gmail.com)  
+**📧 Contact:** [iamaanshaikh@cit.org.in](mailto:iamaanshaikh@cit.org.in)  
 **🐙 GitHub:** [@iamaanahmad](https://github.com/iamaanahmad)  
 **🌐 Live Demo:** [https://eventola.appwrite.network](https://eventola.appwrite.network)
 
 ---
 
-### 💝 **Thank You, Appwrite Team!**
+### 💝 **Powered by Appwrite**
 
 *This project showcases the incredible power and developer experience of Appwrite.  
 Every feature just works, and the integration is seamless. Keep building amazing tools!*
@@ -384,5 +301,3 @@ Every feature just works, and the integration is seamless. Keep building amazing
 </div>
 
 </div>
-
-**⭐ Star this repo if Eventola impressed you!**
